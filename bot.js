@@ -81,7 +81,7 @@ client.on('message', async msg => { // eslint-disable-line
 				var video = await youtube.getVideo(url);
 			} catch (error) {
 				try {
-					var videos = await youtube.searchVideos(searchString, 10);
+					var videos = await youtube.searchVideos(searchString, 5);
 					let index = 0;
 					const embed1 = new Discord.RichEmbed()
 			        .setDescription(`**choose the video number| you only have 20s to choose<a:loading:439807730564464659>** :
@@ -143,14 +143,14 @@ ${serverQueue.songs.map(song => `**${++index} -** ${song.title}`).join('\n')}
 
 **The Current Audio Playing** <a:blob:439807830586032138>${serverQueue.songs[0].title}`)
 		return msg.channel.sendEmbed(embedqu);
-	} else if (command === `off`) {
+	} else if (command === `pause`) {
 		if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
 			return msg.channel.send('**The Audio have Been stoped :pause_button:** ');
 		}
 		return msg.channel.send('**There is nothing playing.<:xx123:439800927457640448>**');
-	} else if (command === `on`) {
+	} else if (command === `resume`) {
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
 			serverQueue.connection.dispatcher.resume();
@@ -251,19 +251,22 @@ if (message.content.startsWith(PREFIX + 'setavatar')) {
 }
 });
 
-let prefix = 'greergrgrergrm';
+let prefix = '5';
 
 client.on('message', msg => {
 	if (msg.content.startsWith(prefix + 'help')) {
 msg.author.send("Commands Music " + `  **
 
-   "  : الاوامر "
+    "  : الاوامر "
 :headphones:  ${prefix}play |اسم لاغنيه / رابط الاغنية 
 :headphones:  ${prefix}skipللإنتقاال الى الاغنيه التاليه (\اذا كان هناك بقائمة الانتظار\
 :headphones:  ${prefix}stop|لأيقاف الموسيقى  
 :headphones:  ${prefix}volume |لتغير حجم الصوت
 :headphones:  ${prefix}np | لرؤية الموسيقى الشغالة حالياً
-:headphones:  ${prefix}resume |لاعادت تشغيل الاغنية الموجودة
+:headphones:  ${prefix}pause |لايقاف الاغنية الحالية مؤقتا
+:headphones:  ${prefix}resume |لاكمال الاغنية الحالية
+:headphones:  ${prefix}join |لتعليق البوت فالروم
+for help = <@466858375544832001> 
 **`);
  }
 });
@@ -276,7 +279,7 @@ client.on('message', message => {
   // we ignore it
   if (!message.guild) return;
 
-  if (message.content === '0join') {
+  if (message.content === '5join') {
     // Only try to join the sender's voice channel if they are in one themselves
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
@@ -290,7 +293,8 @@ client.on('message', message => {
 })
 
 client.on('ready', () => {
-  client.user.setGame('0play','https://www.twitch.tv/pd13');
+     client.user.setActivity("5play",{type: 'LISTENING'});
+
 });
 
 client.login(process.env.BOT_TOKEN);

@@ -120,7 +120,7 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 		serverQueue.songs = [];
 		serverQueue.connection.dispatcher.end('**Stop command has been used!<:checkmark:439800491644289024>**');
 		return undefined;
-	} else if (command === `volume`) {
+	} else if (command === `vol`) {
 		if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel!<:xx123:439800927457640448>');
 		if (!serverQueue) return msg.channel.send('**There is nothing playing.<:xx123:439800927457640448>**');
 		if (!args[1]) return msg.channel.send(`:loud_sound: Current volume is **${serverQueue.volume}**`);

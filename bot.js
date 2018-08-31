@@ -301,10 +301,8 @@ client.on('message', message => {
     }
   }
 })
-
 client.on('ready', () => {
-     client.user.setActivity("5play",{type: 'LISTENING'});
-
+  client.user.setGame(`Dèvont ..`,'https://www.twitch.tv/v5bz');
 });
 
 client.login(process.env.BOT_TOKEN);
